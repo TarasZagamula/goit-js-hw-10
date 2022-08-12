@@ -20,6 +20,30 @@ body {
 }
 
 /* ===========MARKUP_STYLE============= */
-.list {
-  
+.list_item {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.list_value {
+font-weight: normal;
+margin-left: 10px;
+}
+
+.title_country {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.list_properties {
+  padding-left: 0;
+}
+
+.flag_img {
+  margin-right: 5px;
 }
