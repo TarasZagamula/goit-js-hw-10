@@ -19,21 +19,22 @@ refs.inputE.addEventListener(`input`, debounce(onInpt, DEBOUNCE_DELAY))
 function onInpt(e) {
 
     newCountriesApi.query = e.target.value;
-    newCountriesApi.fetchCountries().then(i => {
-        if (i.length > limit) {
+    if (e.target.value === ``) {return clearMarkup()}
+    newCountriesApi.fetchCountries().then(res => {
+        if (res.length > limit) {
             clearMarkup()
             return Notiflix.Notify.success(`Too many matches found. Please enter a more specific name.`)
-        } else if (i.length < limit && i.length > 2) {
+        } else if (res.length < limit && res.length > 2) {
             clearMarkup()
-            refs.countryList.innerHTML = listCreator(i)
-        } else if (i.length === 1) {
+            refs.countryList.innerHTML = listCreator(res)
+        } else if (res.length === 1) {
             clearMarkup()
-            return refs.countryInfo.innerHTML = infoCreator(i)
-        } else {
-            clearMarkup()
-            return Notiflix.Notify.failure(`${i.message}`)
-        }
-    })
+            return refs.countryInfo.innerHTML = infoCreator(res)
+        } 
+    }).catch(err => {
+        Notiflix.Notify.failure(`Oops, there is no country with that name`)
+    }
+    )
 };
 
 function listCreator(arr) {

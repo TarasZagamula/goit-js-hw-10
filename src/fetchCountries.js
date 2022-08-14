@@ -15,10 +15,18 @@ export default class NewCountriesApi {
         const url = `https://restcountries.com/v3.1/name/`
 
         return fetch(`${url}${this.searchCountry}?fields=${Object.values(options).join(`,`)}`)
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 404) {
+                    console.log(res.status)
+                    throw new Error(response.status)
+                }
+                return res.json()
+            })
             .then(data => {
                 console.log(data)
                 return data
+            }).catch(error => {
+               return console.log(error)
             })
     }
 
