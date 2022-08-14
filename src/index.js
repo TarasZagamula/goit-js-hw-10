@@ -20,14 +20,19 @@ function onInpt(e) {
 
     newCountriesApi.query = e.target.value;
     newCountriesApi.fetchCountries().then(i => {
-        if (i.length > limit) { return Notiflix.Notify.success(`Too many matches found. Please enter a more specific name.`) };
-        if (i.length === 1) {
-            console.log(infoCreator(i))
+        if (i.length > limit) {
             clearMarkup()
-            return refs.countryInfo.innerHTML = infoCreator(i)
-            } 
+            return Notiflix.Notify.success(`Too many matches found. Please enter a more specific name.`)
+        } else if (i.length < limit && i.length > 2) {
             clearMarkup()
             refs.countryList.innerHTML = listCreator(i)
+        } else if (i.length === 1) {
+            clearMarkup()
+            return refs.countryInfo.innerHTML = infoCreator(i)
+        } else {
+            clearMarkup()
+            return Notiflix.Notify.failure(`${i.message}`)
+        }
     })
 };
 

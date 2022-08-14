@@ -15,12 +15,11 @@ export default class NewCountriesApi {
         const url = `https://restcountries.com/v3.1/name/`
 
         return fetch(`${url}${this.searchCountry}?fields=${Object.values(options).join(`,`)}`)
-            .then(r => r.json())
+            .then(res => res.json())
             .then(data => {
                 console.log(data)
                 return data
-                
-            });
+            })
     }
 
     get query() {
